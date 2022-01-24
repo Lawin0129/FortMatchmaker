@@ -3,7 +3,7 @@ const Server = '[SERVER]';
 const crypto = require("crypto");
 
 // Start listening websocket on port
-const port = 443;
+const port = 80;
 const wss = new WebSocket({ port: port }, console.log(Server, "Matchmaker started listening on port", port));
 
 wss.on('connection', async (ws) => {
