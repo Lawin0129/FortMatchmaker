@@ -1,13 +1,11 @@
 {
-  "name": "fortnite-matchmaker",
+  "name": "fortmatchmaker",
   "version": "1.0.0",
-  "description": "",
+  "description": "A fortnite matchmaker.",
   "main": "index.js",
   "dependencies": {
-    "crypto": "^1.0.1",
-    "ws": "^8.4.0"
+    "ws": "^8.12.1"
   },
-  "devDependencies": {},
   "scripts": {
     "start": "node index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

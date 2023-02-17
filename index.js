@@ -1,10 +1,13 @@
-const WebSocket = require('ws').Server;
-const Server = '[SERVER]';
+const { Server: WebSocket } = require("ws");
 const crypto = require("crypto");
 
 // Start listening websocket on port
 const port = 80;
-const wss = new WebSocket({ port: port }, console.log(Server, "Matchmaker started listening on port", port));
+const wss = new WebSocket({ port: port });
+
+wss.on('listening', () => {
+    console.log(`Matchmaker started listening on port ${port}`);
+});
 
 wss.on('connection', async (ws) => {
     if (ws.protocol.toLowerCase().includes("xmpp")) {
@@ -17,11 +20,11 @@ wss.on('connection', async (ws) => {
     const sessionId = crypto.createHash('md5').update(`3${Date.now()}`).digest('hex');
 
     // you can use setTimeout to send the websocket messages at certain times
-    Connecting();
-    Waiting();
-    Queued();
-    SessionAssignment();
-    setTimeout(Join, 2000);
+    setTimeout(Connecting, 200/* Milliseconds */);
+    setTimeout(Waiting, 1000); // 0.8 Seconds after Connecting
+    setTimeout(Queued, 2000); // 1 Second after Waiting
+    setTimeout(SessionAssignment, 6000); // 4 Seconds after Queued
+    setTimeout(Join, 8000); // 2 Seconds after SessionAssignment
 
     function Connecting() {
         ws.send(JSON.stringify({
@@ -76,8 +79,4 @@ wss.on('connection', async (ws) => {
             "name": "Play"
         }));
     }
-
-    ws.on('message', function incoming(message) {
-        console.log(Server, 'A client sent a message:', message);
-    });
 });
